@@ -150,7 +150,7 @@ def add():
         return render_template("add.html")
 
 
-@app.route('/login', methods=["GET", "POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     """Route to login. The function has two operations based on the request
     method
@@ -170,19 +170,19 @@ def login():
     Redirect: show
     """
     error = None
-    if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid password'
+    if request.method == "POST":
+        if request.form["username"] != app.config["USERNAME"]:
+            error = "Invalid username"
+        elif request.form["password"] != app.config["PASSWORD"]:
+            error = "Invalid password"
         else:
-            session['logged_in'] = True
-            flash('You were logged in sucessfully')
-            return redirect(url_for('show'))
-    return render_template('login.html', error=error)
+            session["logged_in"] = True
+            flash("You were logged in sucessfully")
+            return redirect(url_for("show"))
+    return render_template("login.html", error=error)
 
 
-@app.route('/logout')
+@app.route("/logout")
 def logout():
     """Route to logout.
 
@@ -192,9 +192,9 @@ def logout():
     Template: None
     Redirect: show
     """
-    session.pop('logged_in', None)
-    flash('You were logged out')
-    return redirect(url_for('show'))
+    session.pop("logged_in", None)
+    flash("You were logged out")
+    return redirect(url_for("show"))
 
 
 if __name__ == "__main__":

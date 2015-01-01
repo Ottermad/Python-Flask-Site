@@ -15,4 +15,4 @@ Features include:
 * Bootstrap Frontend - it uses the bootstrap framework to create a visually appealling and responsive frontend.
 * CRUD operations - using the Peewee ORM it performs all the CRUD operations on a MySQL database.
 
-A working demo should be up and running soon.
+A working demo can be found at [http://178.62.74.70](http://178.62.74.70)

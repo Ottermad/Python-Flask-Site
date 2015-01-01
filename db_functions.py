@@ -63,7 +63,6 @@ def get_posts():
     """
     posts = []
     for post in Post.select():
-        print post, post.id, post.title, post.body
         post_dict = {
             "id": post.id,
             "title": post.title,
