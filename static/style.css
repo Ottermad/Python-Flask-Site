@@ -1,0 +1,17 @@
+header {
+    text-align: center;
+}
+
+.form-control {
+    width: 40%;
+}
+
+#description {
+    height: 20em;
+}
+
+body {
+    font-size: 20px;
+/*    font-family: 'Indie Flower', cursive;
+*/	font-family: 'Abel', sans-serif;
+}

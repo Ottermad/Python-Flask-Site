@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+    <form method="post">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input name="title" id="title" type="text" class="form-control" value="{% block title_placeholder %}{% endblock %}">
+        </div>
+        <div class="form-group">
+            <label for="body">Body</label>
+            <textarea name="body" id="body" class="form-control">{% block body_placeholder %}{% endblock %}</textarea>
+        </div>
+        <button type="submit" class="btn btn-success btn-lg">Submit</button>
+    </form>
+{% endblock %}

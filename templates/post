@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block body %}
+    <h3>
+        {{ title }}
+    </h3>
+    <p>
+        {{ body }}
+    </p>
+    <button class="btn btn-info btn-lg" onclick="location.href='{{ url_for("show") }}'">
+        Go Back
+    </button>
+{% endblock %}

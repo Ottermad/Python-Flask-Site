@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="bootstrap.min.css") }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="bootstrap-theme.min.css") }}">
+        <link href='http://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="style.css") }}">
+        <title>ODOT</title>
+    </head>
+    <body>
+        <div class="container theme-showcase">
+            <header>
+                <h1>ODOT</h1>
+                <h2>Todo backwards!</h2>
+                <p>
+                    |
+                    <a href="{{ url_for("show") }}">
+                        HOME
+                    </a>
+                    |
+                    {% if not session.logged_in %}
+                        <a href="{{ url_for("login") }}">
+                            LOGIN
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for("logout") }}">
+                            LOGOUT
+                        </a>
+                    {% endif %}
+                    |
+                </p>
+            </header>
+            {% block body %}
+            {% endblock %}
+        </div>
+        {% for message in get_flashed_messages() %}
+            <script>
+                alert("{{ message }}");
+            </script>
+        {% endfor %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="{{ url_for("static", filename="bootstrap.min.js") }}"></script>
+    </body>
+</html>
