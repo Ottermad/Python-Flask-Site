@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block body %}
+	<h3>projects</h3>
+    <ul>
+       
+        {% for project in projects %}
+            <li>
+                <h2 colspan="{% if session.logged_in %}3{% endif %}" class="cleantable">
+                    {{ project["title"] }}
+                </h2>
+
+                <p>
+                	<a href="{{ project["link"] }}">
+                		{{ project["link"] }}
+                	</a>
+                </p>
+
+                <p>
+                	{{ project["description"]}}
+                </p>
+                    
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

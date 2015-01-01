@@ -18,6 +18,11 @@ from db_functions import (
     add_post,
     update_post,
     delete_post,
+    get_projects,
+    get_project,
+    add_project,
+    update_project,
+    delete_project
 )
 import markdown
 
@@ -25,6 +30,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "some_really_long_random_string_here"
 app.config["USERNAME"] = "charliethomas"
 app.config["PASSWORD"] = "my_password"
+
 
 # Routes
 
@@ -195,6 +201,22 @@ def logout():
     session.pop("logged_in", None)
     flash("You were logged out")
     return redirect(url_for("show"))
+
+
+@app.route("/about")
+def about():
+    """Route for about page"""
+    return render_template("about.html")
+
+
+@app.route("/portfolio")
+def portfolio():
+    """Route for portfolio page"""
+    context = {
+        "projects": get_projects()
+    }
+    print context
+    return render_template("portfolio.html", **context)
 
 
 if __name__ == "__main__":

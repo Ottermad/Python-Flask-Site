@@ -25,6 +25,12 @@ class Post(BaseModel):
     title = CharField()
     body = TextField()
 
+class Project(BaseModel):
+    """A model for a project containing a title and a description"""
+    title = CharField()
+    link = CharField()
+    description = TextField()
+
 
 # Functions
 
@@ -32,7 +38,7 @@ class Post(BaseModel):
 def setup_db():
     """Function to connect to db and create tables"""
     db.connect()
-    db.create_tables([Post])
+    db.create_tables([Post, Project])
 
 
 def add_post(title, body):
@@ -123,6 +129,99 @@ def delete_post(id):
     try:
         post = Post.get(Post.id == id)
         post.delete_instance()
+        return "Success"
+    except:
+        return "Error"
+
+
+def add_project(title, description):
+    """Function to create a new project
+
+    Parameters:
+    title - string -title for the project
+    description - string - description of the project
+
+    Returns Success if project creation is successful or Error if not.
+    """
+    try:
+        new_project = Project(title=title, description=description)
+        new_project.save()
+        return "Success"
+    except:
+        return "Error"
+
+
+def get_projects():
+    """Function to get all projects from db
+
+    Parameters
+    None
+
+    Returns a list of dictionaries. The dictionaries will be in the following
+    have an id, title and body
+    """
+    projects = []
+    for project in Project.select():
+        project_dict = {
+            "id": project.id,
+            "title": project.title,
+            "description": project.description
+        }
+        projects.append(project_dict)
+    return projects
+
+
+def get_project(id):
+    """Function to get an indiviual project from an id.
+
+    Parameters
+    id - int - id for a project
+
+    It searches for the project with corrosponding id and returns a dictionary
+    with the id, title and body of the project.
+    """
+    project_dict = {}
+    project = Project.get(Project.id == id)
+    project_dict = {
+        "id": project.id,
+        "title": project.title,
+        "description": project.description
+    }
+    return project_dict
+
+
+def update_project(id, title, description):
+    """Function to update a project
+
+    Parameters
+    id - int - id for project to update
+    title - string - new title for project
+    description - string - new description for project
+
+    It searches for the project with the matching id. Then updates the title and
+    body.
+    """
+    try:
+        project = Project.get(Project.id == id)
+        project.title = title
+        project.description = description
+        project.save()
+        return "Success"
+    except:
+        return "Error"
+
+
+def delete_project(id):
+    """Function to delete a project
+
+    Parameters
+    id - int - id for project to delete
+
+    It searches for the project with the matching id then deletes it.
+    """
+    try:
+        project = Project.get(Project.id == id)
+        project.delete_instance()
         return "Success"
     except:
         return "Error"
