@@ -2,33 +2,34 @@
 {% block body %}
 
     <table class="table-responsive table">
-        <thead>
-            <th colspan="4">Your TODO lists:</th>
-        </thead>
-
+       
         {% for post in posts %}
             <tr>
-                <td>
+                <td colspan="{% if session.logged_in %}3{% endif %}" class="cleantable">
                     {{ post["title"] }}
                 </td>
 
-                <td>
-                    <button class="btn btn-info btn-lg" onclick="location.href='{{ url_for("post", id=post.id) }}'">
-                        View
-                    </button>
-                </td>
+                    <td>
+                        <button class="btn btn-info btn-lg" onclick="location.href='{{ url_for("post", id=post.id) }}'">
+                            View
+                        </button>
+                    </td>
 
-                <td>
-                    <button class="btn btn-warning btn-lg" onclick="location.href='{{ url_for("update", id=post.id) }}'">
-                        Edit
-                    </button>
-                </td>
+                {% if session.logged_in %}
 
-                <td>
-                    <button class="btn btn-danger btn-lg" onclick="location.href='{{ url_for("delete", id=post.id) }}'">
-                        Delete
-                    </button>
-                </td>
+                    <td>
+                        <button class="btn btn-warning btn-lg" onclick="location.href='{{ url_for("update", id=post.id) }}'">
+                            Edit
+                        </button>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-danger btn-lg" onclick="location.href='{{ url_for("delete", id=post.id) }}'">
+                            Delete
+                        </button>
+                    </td>
+
+                {% endif %}
             </tr>
         {% endfor %}
     </table>

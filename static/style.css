@@ -13,5 +13,10 @@ header {
 body {
     font-size: 20px;
 /*    font-family: 'Indie Flower', cursive;
-*/	font-family: 'Abel', sans-serif;
+	font-family: 'Abel', sans-serif;*/
+	font-family: 'Raleway', sans-serif;	
+}
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+	border: none;
 }

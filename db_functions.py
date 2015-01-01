@@ -35,15 +35,12 @@ def setup_db():
 
 
 def add_post(title, body):
-    #try:
-    print 1
-    new_post = Post(title=title, body=body)
-    print 2
-    new_post.save()
-    print 3
-    return "Success"
-    #except:
-    #   return "Error"
+    try:
+        new_post = Post(title=title, body=body)
+        new_post.save()
+        return "Success"
+    except:
+       return "Error"
 
 
 def get_posts():

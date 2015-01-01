@@ -1,5 +1,6 @@
 from flask import *
 from db_functions import *
+import markdown
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "some_really_long_random_string_here"
@@ -9,19 +10,22 @@ app.config["PASSWORD"] = "my_password"
 @app.route("/")
 @app.route("/show")
 def show():
-	posts = get_posts()
-	print posts
 	context = {
-		"posts": get_posts()
+		"posts": get_posts()[::-1]
 	}
 	return render_template("show.html", **context)
 
 @app.route("/post/<id>")
 def post(id):
-	post = get_post(id)
+	post = get_post(id) 
+	title =  post["title"]
+	body = post["body"]
+	unicode_body = body.decode("utf-8")
+	html_body = markdown.markdown(unicode_body)
+	safe_html_body = Markup(html_body)
 	context = {
 		"title": post["title"],
-		"body": post["body"]
+		"body": safe_html_body
 	}
 	return render_template("post.html", **context)
 
@@ -77,7 +81,7 @@ def login():
 def logout():
 	session.pop('logged_in', None)
 	flash('You were logged out')
-	return render_template(url_for('show'))
+	return redirect(url_for('show'))
 
 
 if __name__ == "__main__":
