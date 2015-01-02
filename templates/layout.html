@@ -7,13 +7,17 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="bootstrap-theme.min.css") }}">
         <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="{{ url_for("static", filename="style.css") }}">
-        <title>Charles Thomas | Blog</title>
+        <title>Charles Thomas | Developer</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="{{ url_for("static", filename="jquery.collapse.js") }}"></script>
+        <script src="{{ url_for("static", filename="jquery.collapse_storage.js") }}"></script>
+        <script src="{{ url_for("static", filename="jquery.collapse_cookie_storage.js") }}"></script>
     </head>
     <body>
         <div class="container theme-showcase">
             <header>
                 <h1>Charles Thomas</h1>
-                <h2>Blog</h2>
+                <h2>Developer</h2>
                 <p>
                     |
                     <a href="{{ url_for("show") }}">
@@ -26,6 +30,10 @@
                     |
                     <a href="{{ url_for("portfolio") }}">
                         PORTFOLIO
+                    </a>
+                    |
+                    <a href="{{ url_for("contact") }}">
+                        CONTACT
                     </a>
                     |
                     {% if not session.logged_in %}
@@ -42,7 +50,11 @@
             </header>
             {% block body %}
             {% endblock %}
-            <p class="footer">&copy; Charles Thomas 2015</p>
+            <p class="footer">
+                &copy; Charles Thomas 2015
+                <br>All icons from <a href="http://glyphicons.com/">http://glyphicons.com/</a>
+            </p>
+
         </div>
         
         
@@ -51,7 +63,6 @@
                 alert("{{ message }}");
             </script>
         {% endfor %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="{{ url_for("static", filename="bootstrap.min.js") }}"></script>
     </body>
 </html>

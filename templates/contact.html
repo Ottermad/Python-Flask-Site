@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+    <form method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input name="name" id="name" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input name="email" id="email" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="body">Body</label>
+            <textarea name="body" id="body" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success btn-lg">Submit</button>
+    </form>
+{% endblock %}

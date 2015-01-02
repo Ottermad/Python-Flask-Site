@@ -20,11 +20,12 @@ from db_functions import (
     delete_post,
     get_projects,
     get_project,
-    add_project,
-    update_project,
-    delete_project
+    add_project as add_project_to_db,
+    update_project as update_project_to_db,
+    delete_project as delete_project_to_db
 )
 import markdown
+import sendgrid
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "some_really_long_random_string_here"
@@ -212,12 +213,119 @@ def about():
 @app.route("/portfolio")
 def portfolio():
     """Route for portfolio page"""
+    projects = get_projects()
+    for project in projects:
+        unicode_body = project["description"].decode("utf-8")
+        html_body = markdown.markdown(unicode_body)
+        safe_html_body = Markup(html_body)
+        project["description"] = safe_html_body
     context = {
-        "projects": get_projects()
+        "projects": projects
     }
-    print context
     return render_template("portfolio.html", **context)
 
+
+@app.route("/update_project/<id>", methods=["POST", "GET"])
+def update_project(id):
+    """Route to update project the function has two operations based on the
+    request method.
+
+    Parameters:
+    id - init - id for project to update
+
+    GET method:
+    If the request method is GET it loads the form to update the project.
+
+    Template: edit.html
+    Redirect: None
+
+    project method:
+    If the request method is project then it updates the project based on the id
+    with the title and body.
+
+    Template: None
+    Redirect: portfolio
+    """
+    if request.method == "POST":
+        result = update_project_to_db(
+            id,
+            request.form["title"],
+            request.form["link"],
+            request.form["description"]
+        )
+        flash(result)
+        return redirect(url_for("portfolio"))
+    else:
+        project = get_project(id)
+        return render_template("edit_project.html", **project)
+
+
+@app.route("/delete_project/<id>")
+def delete_project(id):
+    """Route to delete project from id.
+
+    Parameters:
+    id - int - id for project to delete
+
+    Template: None
+    Redirect: portfolio
+    """
+    result = delete_project_to_db(id)
+    flash(result)
+    return redirect(url_for("portfolio"))
+
+
+@app.route("/add_project", methods=["POST", "GET"])
+def add_project():
+    """Route to add project. The function has two operations based on the request
+    method
+
+    Parameters:
+    None
+
+    GET method:
+    If the request method is GET it loads the form to add a project.
+
+    Template: add.html
+    Redirect: None
+
+    project method:
+    If the request method is project then it adds the project with the title and
+    body.
+
+    Template: None
+    Redirect: portfolio
+    """
+    if request.method == "POST":
+        result = add_project_to_db(
+            request.form["title"],
+            request.form["link"],
+            request.form["description"]
+        )
+        flash(result)
+        return redirect(url_for("portfolio"))
+    else:
+        return render_template("add_project.html")
+
+
+@app.route("/contact", methods=["POST", "GET"])
+def contact():
+    if request.method =="POST":
+        sendgrid_object = sendgrid.SendGridClient(
+        "Ottermad", "OttersR0ck")
+        message = sendgrid.Mail()
+        sender = request.form["email"]
+        subject = request.form["name"]
+        body = request.form["body"]
+        message.add_to("charlie.thomas@attwoodthomas.net")
+        message.set_from(sender)
+        message.set_subject(subject)
+        message.set_html(body)
+        sendgrid_object.send(message)
+        flash("Email sent.")
+        return redirect(url_for("contact"))
+    else:
+        return render_template("contact.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

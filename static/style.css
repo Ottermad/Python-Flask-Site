@@ -10,6 +10,11 @@ header {
     height: 20em;
 }
 
+#description {
+	height: 20em;
+	width: 100%;
+}
+
 body {
     font-size: 20px;
 /*    font-family: 'Indie Flower', cursive;
@@ -26,5 +31,9 @@ body {
 	padding-top: 19px;
   	color: #777;
   	border-top: 1px solid #e5e5e5;
+}
+
+.view-btn {
+	margin-bottom: 3px;
 }
 

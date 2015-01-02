@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
-	<h3>projects</h3>
+	<h3>Projects</h3>
     <ul>
        
         {% for project in projects %}
             <li>
-                <h2 colspan="{% if session.logged_in %}3{% endif %}" class="cleantable">
+                <h2>
                     {{ project["title"] }}
                 </h2>
 
@@ -14,12 +14,28 @@
                 		{{ project["link"] }}
                 	</a>
                 </p>
-
-                <p>
-                	{{ project["description"]}}
-                </p>
-                    
+                <button class="btn btn-info view-btn" type="button" data-toggle="collapse" data-target="#{{ project["id"] }}" aria-expanded="false" aria-controls="collapseExample">
+                  View Description
+                </button>
+                <div class="collapse" id="{{ project["id"] }}">
+                  <div class="well">
+                    <p>
+                        {{ project["description"] }}
+                    </p>
+                  </div>
+                </div>
+                {% if session.logged_in %}
+                   <button class="btn btn-warning" onclick="location.href='{{ url_for("update_project", id=project.id) }}'">
+                       Edit
+                   </button>
+                    <button class="btn btn-danger" onclick="location.href='{{ url_for("delete_project", id=project.id) }}'">
+                        Delete
+                    </button>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
+    {% if session.logged_in %}
+        <button class="btn btn-success btn-lg" onclick="location.href='{{ url_for("add_project") }}'">Add A Project</button>
+    {% endif %}
 {% endblock %}

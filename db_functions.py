@@ -134,7 +134,7 @@ def delete_post(id):
         return "Error"
 
 
-def add_project(title, description):
+def add_project(title, link, description):
     """Function to create a new project
 
     Parameters:
@@ -144,7 +144,7 @@ def add_project(title, description):
     Returns Success if project creation is successful or Error if not.
     """
     try:
-        new_project = Project(title=title, description=description)
+        new_project = Project(title=title, link=link, description=description)
         new_project.save()
         return "Success"
     except:
@@ -165,6 +165,7 @@ def get_projects():
         project_dict = {
             "id": project.id,
             "title": project.title,
+            "link": project.link,
             "description": project.description
         }
         projects.append(project_dict)
@@ -185,12 +186,13 @@ def get_project(id):
     project_dict = {
         "id": project.id,
         "title": project.title,
+        "link": project.link,
         "description": project.description
     }
     return project_dict
 
 
-def update_project(id, title, description):
+def update_project(id, title, link, description):
     """Function to update a project
 
     Parameters
@@ -205,6 +207,7 @@ def update_project(id, title, description):
         project = Project.get(Project.id == id)
         project.title = title
         project.description = description
+        project.link = link
         project.save()
         return "Success"
     except:
