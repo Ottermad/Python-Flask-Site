@@ -5,7 +5,10 @@
     </h1>
     <p>
         {{ body }}
-    </p>
+    </p> 
+    <button class="btn btn-info btn-lg" onclick="location.href='{{ url_for("show") }}'">
+        Go Back
+    </button>
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -19,8 +22,5 @@
         })();
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    
-    <button class="btn btn-info btn-lg" onclick="location.href='{{ url_for("show") }}'">
-        Go Back
-    </button>
+   
 {% endblock %}
