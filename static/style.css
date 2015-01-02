@@ -37,3 +37,17 @@ body {
 	margin-bottom: 3px;
 }
 
+.link {
+	word-wrap: break-word;
+}
+
+@media(max-width:767px){
+	/* Styles */
+	body {
+		padding-top: 70px;
+	}
+
+	.form-control {
+		width: 100%;
+	}
+}

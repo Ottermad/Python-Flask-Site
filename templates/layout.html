@@ -16,6 +16,7 @@
     <body>
         <div class="container theme-showcase">
             <header>
+                <div class="hidden-xs">
                 <h1>Charles Thomas</h1>
                 <h2>Developer</h2>
                 <p>
@@ -47,12 +48,64 @@
                     {% endif %}
                     |
                 </p>
+                </div>
+                <nav class="navbar navbar-default hidden-sm hidden-md hidden-lg navbar-fixed-top">
+                  <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">Charles Thomas</a>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="{{ url_for("show") }}">
+                                    BLOG
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for("about") }}">
+                                    ABOUT
+                                </a> 
+                            </li>
+                            <li>
+                                <a href="{{ url_for("portfolio") }}">
+                                    PORTFOLIO
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for("contact") }}">
+                                    CONTACT
+                                </a>
+                            </li>
+                            <li>
+                                {% if not session.logged_in %}
+                                    <a href="{{ url_for("login") }}">
+                                        LOGIN
+                                    </a>
+                                {% else %}
+                                    <a href="{{ url_for("logout") }}">
+                                        LOGOUT
+                                    </a>
+                                {% endif %}
+                            </li>    
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                  </div><!-- /.container-fluid -->
+                </nav>
+                
             </header>
             {% block body %}
             {% endblock %}
             <p class="footer">
                 &copy; Charles Thomas 2015
-                <br>All icons from <a href="http://glyphicons.com/">http://glyphicons.com/</a>
             </p>
 
         </div>

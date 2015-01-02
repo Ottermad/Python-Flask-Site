@@ -240,8 +240,8 @@ def update_project(id):
     Redirect: None
 
     project method:
-    If the request method is project then it updates the project based on the id
-    with the title and body.
+    If the request method is project then it updates the project based on the
+    id with the title and body.
 
     Template: None
     Redirect: portfolio
@@ -277,7 +277,8 @@ def delete_project(id):
 
 @app.route("/add_project", methods=["POST", "GET"])
 def add_project():
-    """Route to add project. The function has two operations based on the request
+    """Route to add project. The function has two operations based on the
+    request
     method
 
     Parameters:
@@ -289,9 +290,9 @@ def add_project():
     Template: add.html
     Redirect: None
 
-    project method:
-    If the request method is project then it adds the project with the title and
-    body.
+    POST method:
+    If the request method is project then it adds the project with the title
+    and body.
 
     Template: None
     Redirect: portfolio
@@ -310,9 +311,9 @@ def add_project():
 
 @app.route("/contact", methods=["POST", "GET"])
 def contact():
-    if request.method =="POST":
+    if request.method == "POST":
         sendgrid_object = sendgrid.SendGridClient(
-        "Ottermad", "OttersR0ck")
+            "Ottermad", "OttersR0ck")
         message = sendgrid.Mail()
         sender = request.form["email"]
         subject = request.form["name"]
