@@ -10,7 +10,8 @@ from flask import (
     request,
     flash,
     url_for,
-    session
+    session,
+    jsonify
 )
 from db_functions import (
     get_posts,
@@ -327,6 +328,11 @@ def contact():
         return redirect(url_for("contact"))
     else:
         return render_template("contact.html")
+
+@app.route("/post_json", methods=["POST","GET"])
+def post_json():
+    posts = get_posts()
+    return jsonify(results=posts)
 
 if __name__ == "__main__":
     app.run(debug=True)
