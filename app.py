@@ -331,7 +331,7 @@ def contact():
 
 @app.route("/post_json", methods=["POST","GET"])
 def post_json():
-    posts = get_posts()
+    posts = get_posts()[::-1]
     return jsonify(results=posts)
 
 if __name__ == "__main__":
