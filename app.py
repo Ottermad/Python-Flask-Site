@@ -72,7 +72,8 @@ def post(id):
     safe_html_body = Markup(html_body)
     context = {
         "title": title,
-        "body": safe_html_body
+        "body": safe_html_body,
+        "url": url_for("post", id=id)
     }
     return render_template("post.html", **context)
 

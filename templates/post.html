@@ -1,11 +1,20 @@
 {% extends "layout.html" %}
+{% block title %}
+    {{ title }}
+{% endblock %}
 {% block body %}
     <h1>
         {{ title }}
     </h1>
     <p>
         {{ body }}
-    </p> 
+    </p>
+    <div id="shareButtons">
+        <div class="fb-share-button" data-href="{{ url }}" data-layout="button"></div>
+        <br>
+        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script> 
+    </div>
     <button class="btn btn-info btn-lg" onclick="location.href='{{ url_for("show") }}'">
         Go Back
     </button>
