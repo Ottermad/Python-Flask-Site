@@ -1,7 +1,19 @@
 {% extends "layout.html" %}
 {% block body %}
+
     <h1>My Treehouse Points</h1>
-    <p>I have been learning web and mobile development using Treehouse</p>
+    <p>
+        I have been learning web and mobile development using Team Treehouse.
+    </p>
+    <img id="treehouse-logo" class="img-respon" src="{{ url_for("static", filename="logo.png") }}">
+    <p>
+        From Team Treehouse I have chosen this quote to sum up what Team Treehouse offers:
+        <blockquote>
+            As members of the Treehouse community, students can learn to build websites, create iPhone and Android apps, build web apps with Ruby on Rails and PHP, learn about user experience, how to start a business, and much more.
+
+            Through 1000+ video tutorials, quizzes, and code challenges created by expert teachers,students can learn to code in languages like Objective-C, HTML, CSS, PHP, Ruby,JavaScript and SQL.
+        </blockquote>
+    </p>
     <ul>
         {% for item in points %}
             <li>{{ item[0] }}: {{ item[1] }}</li>

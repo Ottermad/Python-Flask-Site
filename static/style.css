@@ -41,6 +41,11 @@ body {
 	word-wrap: break-word;
 }
 
+#treehouse-logo {
+	float: right;
+	width: 15%;
+}
+
 
 @media(max-width:767px){
 	/* Styles */
