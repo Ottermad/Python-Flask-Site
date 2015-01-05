@@ -43,7 +43,6 @@ def get_points():
             if my_request.status_code == 200:
                 json = my_request.json() # Get JSON
                 subject_points = json["points"] # Get points
-                name = json["name"] # Get name
                 return subject_points
             else:
                 print "Status Code Error: {}".format(my_request.status_code)
@@ -54,6 +53,39 @@ def get_points():
         # Error with url
         print "Request error."
 
+def get_number_of_subjects():
+    try:
+        my_request = requests.get("http://teamtreehouse.com/charliethomas.json")
+        try:
+            if my_request.status_code == 200:
+                json = my_request.json() # Get JSON
+                subject_points = json["points"] # Get points
+                return len(subject_points)
+            else:
+                print "Status Code Error: {}".format(my_request.status_code)
+        except:
+            # Error parsing json
+            print "Invalid JSON."
+    except:
+        # Error with url
+        print "Request error."
+
+def get_courses(number_of_courses):
+    try:
+        my_request = requests.get("http://teamtreehouse.com/charliethomas.json")
+        try:
+            if my_request.status_code == 200:
+                json = my_request.json() # Get JSON
+                badges = json["badges"] # Get points
+                return badges[-number_of_courses:]
+            else:
+                print "Status Code Error: {}".format(my_request.status_code)
+        except:
+            # Error parsing json
+            print "Invalid JSON."
+    except:
+        # Error with url
+        print "Request error."    
 
 def order_points(points):
     return sorted(points.items(), key=lambda x:x[1])[::-1]
@@ -363,7 +395,9 @@ def post_json():
 @app.route("/points")
 def points():
     points = order_points(get_points())
-    return render_template("points.html", points=points)
+    number_of_courses = get_number_of_subjects()
+    courses = get_courses(number_of_courses)
+    return render_template("points.html", points=points, courses=courses)
 
 
 if __name__ == "__main__":
