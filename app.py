@@ -27,11 +27,36 @@ from db_functions import (
 )
 import markdown
 import sendgrid
+import requests
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "some_really_long_random_string_here"
 app.config["USERNAME"] = "charliethomas"
 app.config["PASSWORD"] = "my_password"
+
+
+# Functions
+def get_points():
+    try:
+        my_request = requests.get("http://teamtreehouse.com/charliethomas.json")
+        try:
+            if my_request.status_code == 200:
+                json = my_request.json() # Get JSON
+                subject_points = json["points"] # Get points
+                name = json["name"] # Get name
+                return subject_points
+            else:
+                print "Status Code Error: {}".format(my_request.status_code)
+        except:
+            # Error parsing json
+            print "Invalid JSON."
+    except:
+        # Error with url
+        print "Request error."
+
+
+def order_points(points):
+    return sorted(points.items(), key=lambda x:x[1])[::-1]
 
 
 # Routes
@@ -334,6 +359,12 @@ def contact():
 def post_json():
     posts = get_posts()[::-1]
     return jsonify(results=posts)
+
+@app.route("/points")
+def points():
+    points = order_points(get_points())
+    return render_template("points.html", points=points)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

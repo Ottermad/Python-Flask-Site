@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block body %}
+    <h1>My Treehouse Points</h1>
+    <p>I have been learning web and mobile development using Treehouse</p>
+    <ul>
+        {% for item in points %}
+            <li>{{ item[0] }}: {{ item[1] }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
