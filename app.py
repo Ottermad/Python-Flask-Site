@@ -372,7 +372,7 @@ def add_project():
 def contact():
     if request.method == "POST":
         sendgrid_object = sendgrid.SendGridClient(
-            "Ottermad", "OttersR0ck")
+            "", "")
         message = sendgrid.Mail()
         sender = request.form["email"]
         subject = request.form["name"]
